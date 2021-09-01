@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--  Required meta tags always come first  -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Pretrain Language Models</title>
+    <link rel="icon" href="./fig/logo.png">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!--  Font Awesome  -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="./mdb/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="./mdb/css/mdb.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="./mdb/css/style.css">
+    <!-- Custom styles: Hover -->
+    <link rel="stylesheet" href="./mdb5/css/mdb.min.css"/>
+    <!-- Custom styles -->
+    <style>
+
+.timeline-1 {
+  border-left: 3px solid #b565a7;
+  border-bottom-right-radius: 4px;
+  border-top-right-radius: 4px;
+  background: rgba(177, 99, 163, 0.09);
+  margin: 0 auto;
+  position: relative;
+  padding: 50px;
+  list-style: none;
+  text-align: left;
+  max-width: 40%;
+}
+
+@media (max-width: 767px) {
+  .timeline-1 {
+    max-width: 98%;
+    padding: 25px;
+  }
+}
+
+.timeline-1 .event {
+  border-bottom: 1px dashed #000;
+  padding-bottom: 25px;
+  margin-bottom: 25px;
+  position: relative;
+}
+
+@media (max-width: 767px) {
+  .timeline-1 .event {
+    padding-top: 30px;
+  }
+}
+
+.timeline-1 .event:last-of-type {
+  padding-bottom: 0;
+  margin-bottom: 0;
+  border: none;
+}
+
+.timeline-1 .event:before,
+.timeline-1 .event:after {
+  position: absolute;
+  display: block;
+  top: 0;
+}
+
+.timeline-1 .event:before {
+  left: -207px;
+  content: attr(data-date);
+  text-align: right;
+  font-weight: 100;
+  font-size: 0.9em;
+  min-width: 120px;
+}
+
+@media (max-width: 767px) {
+  .timeline-1 .event:before {
+    left: 0px;
+    text-align: left;
+  }
+}
+
+.timeline-1 .event:after {
+  -webkit-box-shadow: 0 0 0 3px #b565a7;
+  box-shadow: 0 0 0 3px #b565a7;
+  left: -55.8px;
+  background: #fff;
+  border-radius: 50%;
+  height: 9px;
+  width: 9px;
+  content: "";
+  top: 5px;
+}
+
+@media (max-width: 767px) {
+  .timeline-1 .event:after {
+    left: -31.8px;
+  }
+}
+    </style>
+
+
+    </style>
+
+
+</head>
+<body>
+
+<!-- Main Navigation -->
+<header>
+
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg   ml-auto navbar-dark fixed-top scrolling-navbar  "
+         style="background: #3f51b5!important">
+        <div class="container">
+
+
+
+            <a class="navbar-brand" href="index.html">
+                <img src="./fig/logo.png" class="rounded-circle" width="50" alt="pretrain">
+            </a>
+
+            <a class="navbar-brand" href="index.html"><strong>Knowledge Graph Spaces</strong></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!--   visitor counter   -->
+
+            <!--   visitor counter   -->
+
+
+            <nobr id="count" style="color:white"></nobr>
+
+
+            <!--                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-7" aria-controls="navbarSupportedContent-7" aria-expanded="false" aria-label="Toggle navigation">-->
+            <!--                    <span class="navbar-toggler-icon"></span>-->
+            <!--                </button>-->
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+
+                    <a class="nav-link" href="https://arxiv.org/" target="_blank">
+                        <li class="nav-item">
+                            <i class="far fa-file-alt"></i>
+                            Full Survey
+                    </a>
+                    </li>
+                    </a>
+
+                    <a class="nav-link" href="timeline.html" target="_blank">
+                        <li class="nav-item">
+                            <i class="fas fa-arrow-down"></i>
+                            Timeline <span class="badge bg-danger rounded-pill"> +5</span>
+                    </a>
+                    </li>
+                    </a>
+
+
+                    <a class="nav-link" href="https://github.com/kgspace/KGRS" target="_blank">
+                        <li class="nav-item">
+                            <i class="fab fa-github pr-1"></i> Github
+                    </a>
+                    </li>
+                    </a>
+
+
+                     <a class="nav-link" href="update.html" target="_blank">
+                        <li class="nav-item">
+                            <i class="fas fa-sync-alt"></i>
+                            Update <span class="badge bg-danger rounded-pill"> +5</span>
+                    </a>
+                    </li>
+                    </a>
+
+
+                </ul>
+                <form class="form-inline">
+                </form>
+            </div>
+        </div>
+    </nav>
+
+
+</header>
+<!-- Main Navigation -->
+<div class="container text-center  py-5">
+</div>
+<!-- Main Layout -->
+<main>
+
+    <div class="container py-5">
+      <div class="row">
+        <div class="col-md-12">
+          <div id="content">
+            <ul class="timeline-1 text-black">
+
+
+               <li class="event" data-date="August 15, 2021">
+                  <h4 class="mb-3"> Inital the website
+                      </h4>
+                  <p>Actions:</p>
+                  <ul>
+                      <li> initialize the website </li>
+                      <li> initialize the structure  </li>
+                  </ul>
+
+                  </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+</main>
+<!-- Main Layout -->
+
+<!-- Footer -->
+<!-- Footer -->
+
+<!--  SCRIPTS  -->
+<!-- JQuery -->
+<script type="text/javascript" src="./mdb/js/jquery.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="./mdb/js/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="./mdb/js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="./mdb/js/mdb.min.js"></script>
+
+
+<!-- Your custom scripts (optional) -->
+<script type="text/javascript"></script>
+
+<script type="text/javascript" src="./mdb5/js/mdb.min.js"></script>
+
+<!--  <a href="https://clustrmaps.com/site/1bh88"  title="Visit tracker"><img src="//www.clustrmaps.com/map_v2.png?d=ixPZLlnbVzOkmbllcqqWxPHy-WqRkh97J35GVa0k0g8&cl=ffffff" style="display:none" /></a>-->
+
+<script>
+    $(document).ready(() => {
+        new WOW().init();
+    });
+
+    // MDB Lightbox Init
+    $(function () {
+        $("#mdb-lightbox-ui").load("./mdb/mdb-addons/mdb-lightbox-ui.html");
+    });
+
+</script>
+
+<script>
+    // update visitor count
+    const countEl = document.getElementById('count');
+
+    updateVisit();
+
+    function updateVisit() {
+
+        fetch('https://api.countapi.xyz/hit/kgspace/kgspace/?amount=1')
+            .then(res => res.json())
+            .then(res => {
+                countEl.innerText = res.value + " visits";
+            });
+    }
+</script>
+
+
+</body>
+</html>

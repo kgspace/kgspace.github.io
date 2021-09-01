@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--  Required meta tags always come first  -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Pretrain Language Models</title>
+    <link rel="icon" href="./fig/logo.png">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!--  Font Awesome  -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="./mdb/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="./mdb/css/mdb.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="./mdb/css/style.css">
+    <!-- Custom styles: Hover -->
+    <link rel="stylesheet" href="./mdb5/css/mdb.min.css"/>
+    <!-- Custom styles -->
+    <style>
+
+        html,
+        body,
+        header,
+        .jarallax {
+            height: 700px;
+        }
+
+        @media (max-width: 740px) {
+            html,
+            body,
+            header,
+            .jarallax {
+                height: 100vh;
+            }
+        }
+
+        @media (min-width: 800px) and (max-width: 850px) {
+            html,
+            body,
+            header,
+            .jarallax {
+                height: 100vh;
+            }
+        }
+
+        @media (min-width: 560px) and (max-width: 650px) {
+            header .jarallax h1 {
+                margin-bottom: 1.5rem !important;
+            }
+
+            header .jarallax h5 {
+                margin-bottom: 1.5rem !important;
+            }
+        }
+
+        .top-nav-collapse {
+            background-color: #3f51b5 !important;
+        }
+
+        .navbar:not(.top-nav-collapse) {
+            background: transparent !important;
+        }
+
+        @media (max-width: 768px) {
+            .navbar:not(.top-nav-collapse) {
+                background: #3f51b5 !important;
+            }
+        }
+
+        @media (min-width: 800px) and (max-width: 850px) {
+            .navbar:not(.top-nav-collapse) {
+                background: #3f51b5 !important;
+            }
+        }
+
+        h5 {
+            letter-spacing: 3px;
+        }
+    </style>
+
+    <!-- <script>-->
+    <!--$(document).ready(function(){-->
+    <!--  $("#intro").hover(function(){-->
+    <!--    // $("#test").css("background-color","yellow");-->
+    <!--      $("#fig_intro").show("slow")-->
+    <!--      $("#value-desc").css("display","block");-->
+    <!--    },function(){-->
+    <!--    // $("#test").css("background-color","pink");-->
+    <!--    $("#fig_intro").hide("slow")-->
+    <!--    $("#value-desc").css("display","none");-->
+    <!--  });-->
+    <!--});-->
+    <!--</script>-->
+
+    <script type="text/javascript">
+
+        $(function () {
+            $('#fig_typo').mouseenter(function (elem) {
+                //if ($('#match'))
+                var wValue = 5 * $(this).width();
+                var hValue = 5 * $(this).height();
+                $(this).stop().animate({
+                    width: wValue,
+                    height: hValue,
+                    left: ("-" + (0.5 * $(this).width()) / 2),
+                    top: ("-" + (0.5 * $(this).height()) / 2)
+                }, 1000);
+            }).mouseleave(function (elem) {
+                $(this).stop().animate({
+                    width: "100px",
+                    height: "120px",
+                    left: "0px",
+                    top: "0px"
+                }, 1000);
+            });
+        });
+
+
+        $(function () {
+            $('#fig_intro').mouseenter(function (elem) {
+                //if ($('#match'))
+                var wValue = 5 * $(this).width();
+                var hValue = 5 * $(this).height();
+                $(this).stop().animate({
+                    width: wValue,
+                    height: hValue,
+                    left: ("-" + (0.5 * $(this).width()) / 2),
+                    top: ("-" + (0.5 * $(this).height()) / 2)
+                }, 1000);
+            }).mouseleave(function (elem) {
+                $(this).stop().animate({
+                    width: "100px",
+                    height: "50px",
+                    left: "0px",
+                    top: "0px"
+                }, 1000);
+            });
+        });
+
+
+        $(function () {
+            $('#fig_formulation').mouseenter(function (elem) {
+                //if ($('#match'))
+                var wValue = 5 * $(this).width();
+                var hValue = 5 * $(this).height();
+                $(this).stop().animate({
+                    width: wValue,
+                    height: hValue,
+                    left: ("-" + (0.5 * $(this).width()) / 2),
+                    top: ("-" + (0.5 * $(this).height()) / 2)
+                }, 1000);
+            }).mouseleave(function (elem) {
+                $(this).stop().animate({
+                    width: "100px",
+                    height: "50px",
+                    left: "0px",
+                    top: "0px"
+                }, 1000);
+            });
+        });
+
+        $(function () {
+            $('#fig_pretrain').mouseenter(function (elem) {
+//if ($('#match'))
+                var wValue = 5 * $(this).width();
+                var hValue = 5 * $(this).height();
+                $(this).stop().animate({
+                    width: wValue,
+                    height: hValue,
+                    left: ("-" + (0.5 * $(this).width()) / 2),
+                    top: ("-" + (0.5 * $(this).height()) / 2)
+                }, 1000);
+            }).mouseleave(function (elem) {
+                $(this).stop().animate({
+                    width: "100px",
+                    height: "50px",
+                    left: "0px",
+                    top: "0px"
+                }, 1000);
+            });
+        });
+
+        $(function () {
+            $('#fig_template').mouseenter(function (elem) {
+//if ($('#match'))
+                var wValue = 5 * $(this).width();
+                var hValue = 5 * $(this).height();
+                $(this).stop().animate({
+                    width: wValue,
+                    height: hValue,
+                    left: ("-" + (0.5 * $(this).width()) / 2),
+                    top: ("-" + (0.5 * $(this).height()) / 2)
+                }, 1000);
+            }).mouseleave(function (elem) {
+                $(this).stop().animate({
+                    width: "100px",
+                    height: "50px",
+                    left: "0px",
+                    top: "0px"
+                }, 1000);
+            });
+        });
+
+        $(function () {
+            $('#fig_answer').mouseenter(function (elem) {
+//if ($('#match'))
+                var wValue = 5 * $(this).width();
+                var hValue = 5 * $(this).height();
+                $(this).stop().animate({
+                    width: wValue,
+                    height: hValue,
+                    left: ("-" + (0.5 * $(this).width()) / 2),
+                    top: ("-" + (0.5 * $(this).height()) / 2)
+                }, 1000);
+            }).mouseleave(function (elem) {
+                $(this).stop().animate({
+                    width: "100px",
+                    height: "50px",
+                    left: "0px",
+                    top: "0px"
+                }, 1000);
+            });
+        });
+
+        $(function () {
+            $('#fig_multi_prompt').mouseenter(function (elem) {
+//if ($('#match'))
+                var wValue = 5 * $(this).width();
+                var hValue = 5 * $(this).height();
+                $(this).stop().animate({
+                    width: wValue,
+                    height: hValue,
+                    left: ("-" + (0.5 * $(this).width()) / 2),
+                    top: ("-" + (0.5 * $(this).height()) / 2)
+                }, 1000);
+            }).mouseleave(function (elem) {
+                $(this).stop().animate({
+                    width: "100px",
+                    height: "50px",
+                    left: "0px",
+                    top: "0px"
+                }, 1000);
+            });
+        });
+
+
+        $(function () {
+            $('#fig_learning').mouseenter(function (elem) {
+//if ($('#match'))
+                var wValue = 5 * $(this).width();
+                var hValue = 5 * $(this).height();
+                $(this).stop().animate({
+                    width: wValue,
+                    height: hValue,
+                    left: ("-" + (0.5 * $(this).width()) / 2),
+                    top: ("-" + (0.5 * $(this).height()) / 2)
+                }, 1000);
+            }).mouseleave(function (elem) {
+                $(this).stop().animate({
+                    width: "100px",
+                    height: "50px",
+                    left: "0px",
+                    top: "0px"
+                }, 1000);
+            });
+        });
+
+
+        $(function () {
+            $('#fig_application').mouseenter(function (elem) {
+//if ($('#match'))
+                var wValue = 5 * $(this).width();
+                var hValue = 5 * $(this).height();
+                $(this).stop().animate({
+                    width: wValue,
+                    height: hValue,
+                    left: ("-" + (0.5 * $(this).width()) / 2),
+                    top: ("-" + (0.5 * $(this).height()) / 2)
+                }, 1000);
+            }).mouseleave(function (elem) {
+                $(this).stop().animate({
+                    width: "100px",
+                    height: "50px",
+                    left: "0px",
+                    top: "0px"
+                }, 1000);
+            });
+        });
+
+        $(function () {
+            $('#fig_related').mouseenter(function (elem) {
+//if ($('#match'))
+                var wValue = 5 * $(this).width();
+                var hValue = 5 * $(this).height();
+                $(this).stop().animate({
+                    width: wValue,
+                    height: hValue,
+                    left: ("-" + (0.5 * $(this).width()) / 2),
+                    top: ("-" + (0.5 * $(this).height()) / 2)
+                }, 1000);
+            }).mouseleave(function (elem) {
+                $(this).stop().animate({
+                    width: "100px",
+                    height: "50px",
+                    left: "0px",
+                    top: "0px"
+                }, 1000);
+            });
+        });
+
+
+        $(function () {
+            $('#fig_resource').mouseenter(function (elem) {
+//if ($('#match'))
+                var wValue = 5 * $(this).width();
+                var hValue = 5 * $(this).height();
+                $(this).stop().animate({
+                    width: wValue,
+                    height: hValue,
+                    left: ("-" + (0.5 * $(this).width()) / 2),
+                    top: ("-" + (0.5 * $(this).height()) / 2)
+                }, 1000);
+            }).mouseleave(function (elem) {
+                $(this).stop().animate({
+                    width: "100px",
+                    height: "50px",
+                    left: "0px",
+                    top: "0px"
+                }, 1000);
+            });
+        });
+
+
+        $(function () {
+            $('#fig_challenge').mouseenter(function (elem) {
+//if ($('#match'))
+                var wValue = 5 * $(this).width();
+                var hValue = 5 * $(this).height();
+                $(this).stop().animate({
+                    width: wValue,
+                    height: hValue,
+                    left: ("-" + (0.5 * $(this).width()) / 2),
+                    top: ("-" + (0.5 * $(this).height()) / 2)
+                }, 1000);
+            }).mouseleave(function (elem) {
+                $(this).stop().animate({
+                    width: "100px",
+                    height: "50px",
+                    left: "0px",
+                    top: "0px"
+                }, 1000);
+            });
+        });
+
+
+        $(function () {
+            $('#fig_meta').mouseenter(function (elem) {
+//if ($('#match'))
+                var wValue = 5 * $(this).width();
+                var hValue = 5 * $(this).height();
+                $(this).stop().animate({
+                    width: wValue,
+                    height: hValue,
+                    left: ("-" + (0.5 * $(this).width()) / 2),
+                    top: ("-" + (0.5 * $(this).height()) / 2)
+                }, 1000);
+            }).mouseleave(function (elem) {
+                $(this).stop().animate({
+                    width: "100px",
+                    height: "50px",
+                    left: "0px",
+                    top: "0px"
+                }, 1000);
+            });
+        });
+
+    </script>
+
+
+</head>
+<body>
+
+<!-- Main Navigation -->
+<header>
+
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg  ml-auto navbar-dark fixed-top scrolling-navbar">
+        <div class="container">
+
+
+
+            <a class="navbar-brand" href="index.html">
+                <img src="./fig/logo.png" class="rounded-circle" width="50" alt="pretrain">
+            </a>
+
+            <a class="navbar-brand" href="index.html"><strong>Knowledge Graph Spaces</strong></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!--   visitor counter   -->
+
+            <!--   visitor counter   -->
+
+
+            <nobr id="count" style="color:white"></nobr>
+
+
+            <!--                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-7" aria-controls="navbarSupportedContent-7" aria-expanded="false" aria-label="Toggle navigation">-->
+            <!--                    <span class="navbar-toggler-icon"></span>-->
+            <!--                </button>-->
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+
+                    <a class="nav-link" href="https://arxiv.org/" target="_blank">
+                        <li class="nav-item">
+                            <i class="far fa-file-alt"></i>
+                            Full Survey
+                    </a>
+                    </li>
+                    </a>
+
+                    <a class="nav-link" href="timeline.html" target="_blank">
+                        <li class="nav-item">
+                            <i class="fas fa-arrow-down"></i>
+                            Timeline <span class="badge bg-danger rounded-pill"> +5</span>
+                    </a>
+                    </li>
+                    </a>
+
+
+                    <a class="nav-link" href="https://github.com/kgspace/KGRS" target="_blank">
+                        <li class="nav-item">
+                            <i class="fab fa-github pr-1"></i> Github
+                    </a>
+                    </li>
+                    </a>
+
+
+                     <a class="nav-link" href="update.html" target="_blank">
+                        <li class="nav-item">
+                            <i class="fas fa-sync-alt"></i>
+                            Update <span class="badge bg-danger rounded-pill"> +5</span>
+                    </a>
+                    </li>
+                    </a>
+
+
+                </ul>
+                <form class="form-inline">
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Intro Section -->
+    <div id="home" class="view jarallax" data-jarallax='{"speed": 0.2}'
+         style="background-image: url(fig/bg.png); background-repeat: no-repeat; background-size: cover; background-position: center center;">
+        <div class="mask rgba-stylish-light">
+            <div class="container h-100 d-flex justify-content-center align-items-center">
+                <div class="row pt-5 mt-3">
+                    <div class="col-md-12 mb-3">
+                        <div class="intro-info-content text-center">
+                            <h1 class="display-3 white-text mb-5 wow fadeInDown" data-wow-delay="0.3s"><a
+                                    class="white-text font-weight-bold">Knowledge Graph Embedding</a></h1>
+                            <h3 class="white-text mb-5 mt-1 font-weight-bold wow fadeInDown" data-wow-delay="0.3s">A Representation Space Learning Perspective </h3>
+                            <!--                            <a class="btn btn-light-blue btn-lg wow fadeInDown" data-wow-delay="0.3s">portfolio</a>-->
+                            <!--                            <a class="btn btn-indigo btn-lg wow fadeInDown" data-wow-delay="0.3s">About</a>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</header>
+<!-- Main Navigation -->
+
+<!-- Main Layout -->
+<main>
+
+    <div class="container">
+
+        <!-- Section: Team v.3 -->
+        <section id="team" class="section team-section pb-4 wow fadeIn" data-wow-delay="0.3s">
+
+            <!-- Section heading -->
+            <h2 class="font-weight-bold text-center h1 my-5"></h2>
+            <div class="container text-center  py-5">
+            </div>
+            <!-- Section description -->
+
+
+            <div class="row text-center">
+                <div class="col-md-1 text-left">
+                </div>
+                <div class="col-md-10 text-left">
+                    <h2 class="text-left">Pre-train and Prompt Learning </h2>
+                    <p class="text-left">This paper aims to provide a survey and organization of research works in a new
+                        paradigm
+                        in natural language processing, which we dub prompt-based learning. [Update: 2021-08-15] </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="row text-center">
+                <div class="col-md-1 text-left">
+                </div>
+                <div class="col-md-10 text-left">
+
+                    <div class="table">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th class="th-sm">Description</th>
+                                <th class="th-sm">Preview</th>
+                                <th class="th-sm">Suggested Readings</th>
+                                <th class="th-sm">Updated Date</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <tr>
+                                <td>Outline [<a href="http://kgspace.github.io/data/pdf/outline.pdf" target="_blank" class="text-primary">Pdf</a>]</td>
+                                <td>
+
+                                    <img
+                                            id="fig_typo"
+                                            src="./fig/content/typology.png"
+                                            class="figure-img img-fluid rounded"
+                                            alt="..."
+                                            style="width: 100px"
+                                    />
+
+                                </td>
+                                <td>-</td>
+                                <td>2021-07-29</td>
+                            </tr>
+
+                            <tr>
+                                <td>Two Sea Changes in NLP [<a href="http://kgspace.github.io/data/pdf/intro.pdf" target="_blank" class="text-primary">Pdf</a>]
+                                </td>
+                                <td>
+
+{% comment %} 
+                                    <img
+                                            id="fig_intro"
+                                            src="./fig/content/intro.png"
+                                            style="width: 100px"
+                                    /> {% endcomment %}
+                                </td>
+                                <td>-</td>
+                                <td>2021-07-29</td>
+                            </tr>
+
+                            <tr>
+                                <td>A formal Description of Prompting [<a href="http://kgspace.github.io/data/pdf/basics.pdf" target="_blank" class="text-primary">Pdf</a>]
+                                </td>
+                                <td>
+
+                                    {% comment %} <img
+                                            id="fig_formulation"
+                                            src="./fig/content/formulation.png"
+                                            class="figure-img img-fluid rounded  "
+                                            alt="..."
+                                            style="width: 100px"
+                                    /> {% endcomment %}
+
+
+                                </td>
+                                <td>-</td>
+                                <td>2021-07-29</td>
+                            </tr>
+
+
+                            <tr>
+                                <td>Pretrained Language Model [<a href="http://kgspace.github.io/data/pdf/plm.pdf" target="_blank" class="text-primary">Pdf</a>]
+                                </td>
+                                <td>
+
+                                    {% comment %} <img id="fig_pretrain"
+                                         src="./fig/content/pretrain.png"
+                                         class="figure-img img-fluid rounded"
+                                         alt="..."
+                                         style="width: 100px"
+                                    /> {% endcomment %}
+
+
+                                </td>
+                                <td>1. <a href="https://arxiv.org/abs/1802.05365" target="_blank" class="text-primary">Deep
+                                    contextualized word representations</a><br>
+                                    2. <a href="https://arxiv.org/abs/1810.04805" target="_blank" class="text-primary">BERT:
+                                        Pre-training of Deep Bidirectional Transformers for Language
+                                        Understanding</a><br>
+                                    3. <a href="https://www.cs.ubc.ca/~amuham01/LING530/papers/radford2018improving.pdf"
+                                          target="_blank" class="text-primary">Improving Language Understanding by
+                                        Generative Pre-Training</a><br>
+                                    4.
+                                    <a href="https://d4mucfpksywv.cloudfront.net/better-language-models/language_models_are_unsupervised_multitask_learners.pdf"
+                                       target="_blank" class="text-primary">Language Models are Unsupervised Multitask
+                                        Learners</a><br>
+                                    5. <a href="https://arxiv.org/abs/2005.14165" target="_blank" class="text-primary">Language
+                                        Models are Few-Shot Learners</a><br>
+                                    6. <a href="https://arxiv.org/abs/1904.09223" target="_blank" class="text-primary">ERNIE:
+                                        Enhanced Representation through Knowledge Integration</a><br>
+                                    7. <a href="https://arxiv.org/abs/1910.13461" target="_blank" class="text-primary">BART:
+                                        Denoising Sequence-to-Sequence Pre-training for Natural Language Generation,
+                                        Translation, and Comprehension</a><br>
+                                    8.
+                                    <a href="https://proceedings.neurips.cc/paper/2019/hash/c20bb2d9a50d5ac1f713f8b34d9aac5a-Abstract.html"
+                                       target="_blank" class="text-primary">Unified Language Model Pre-training for
+                                        Natural Language Understanding and Generation</a><br>
+                                    9. <a href="https://jmlr.org/papers/v21/20-074.html" target="_blank"
+                                          class="text-primary">Exploring the Limits of Transfer Learning with a Unified
+                                        Text-to-Text Transformer</a><br>
+                                    10. <a href="https://arxiv.org/abs/1901.07291" target="_blank" class="text-primary">Cross-lingual
+                                        Language Model Pretraining</a><br>
+                                    11.
+                                    <a href="https://proceedings.neurips.cc/paper/2019/hash/dc6a7e655d7e5840e66733e9ee67cc69-Abstract.html"
+                                       target="_blank" class="text-primary">XLNet: Generalized Autoregressive
+                                        Pretraining for Language Understanding</a><br>
+                                    12. <a href="https://openreview.net/forum?id=r1xMH1BtvB" target="_blank"
+                                           class="text-primary">ELECTRA: Pre-training Text Encoders as Discriminators
+                                        Rather
+                                        Than Generators </a><br>
+                                </td>
+                                <td>2021-07-29</td>
+                            </tr>
+
+                            <tr>
+                                <td>Prompt Engineering [<a href="http://kgspace.github.io/data/pdf/template.pdf" target="_blank" class="text-primary">Pdf</a>]</td>
+                                <td>
+
+                                    <img id="fig_template"
+                                         src="./fig/content/template.png"
+                                         class="figure-img img-fluid rounded"
+                                         alt="..."
+                                         style="width: 100px"
+                                    />
+
+
+                                </td>
+                                <td>
+                                    Discrete Prompt<br>
+                                    1. <a href="https://arxiv.org/abs/1908.07125" target="_blank" class="text-primary">Universal
+                                    Adversarial Triggers for Attacking and Analyzing NLP</a><br>
+                                    2. <a href="https://arxiv.org/abs/2010.15980" target="_blank" class="text-primary">AutoPrompt:
+                                    Eliciting Knowledge from Language Models with Automatically Generated
+                                    Prompts</a><br>
+                                    3. <a href="https://arxiv.org/abs/1911.12543" target="_blank" class="text-primary">How
+                                    Can We Know What Language Models Know?</a><br>
+                                    4. <a href="https://arxiv.org/abs/2106.11520" target="_blank" class="text-primary">BARTScore:
+                                    Evaluating Generated Text as Text Generation</a><br>
+                                    5. <a href="https://aclanthology.org/2021.eacl-main.316/" target="_blank"
+                                          class="text-primary">BERTese: Learning to Speak to BERT</a><br>
+                                    6. <a href="https://arxiv.org/abs/2012.15723" target="_blank" class="text-primary">Making
+                                    Pre-trained Language Models Better Few-shot Learners</a><br>
+                                    Continuous Prompt<br>
+                                    1. <a href="https://arxiv.org/abs/2101.00121" target="_blank" class="text-primary">WARP:
+                                    Word-level Adversarial ReProgramming</a><br>
+                                    2. <a href="https://arxiv.org/abs/2101.00190" target="_blank" class="text-primary">Prefix-Tuning:
+                                    Optimizing Continuous Prompts for Generation</a><br>
+                                    3. <a href="https://arxiv.org/abs/2104.08691" target="_blank" class="text-primary">The
+                                    Power of Scale for Parameter-Efficient Prompt Tuning</a><br>
+                                    4. <a href="https://aclanthology.org/2021.naacl-main.398/" target="_blank"
+                                          class="text-primary">Factual Probing Is [MASK]: Learning vs. Learning to
+                                    Recall</a><br>
+                                    5. <a href="https://arxiv.org/abs/2106.13884" target="_blank" class="text-primary">Multimodal
+                                    Few-Shot Learning with Frozen Language Models</a><br>
+                                    Hybrid Prompt<br>
+                                    1. <a href="https://arxiv.org/abs/2103.10385" target="_blank" class="text-primary">GPT
+                                    Understands, Too</a><br>
+                                    2. <a href="https://arxiv.org/abs/2105.11259" target="_blank" class="text-primary">PTR:
+                                    Prompt Tuning with Rules for Text Classification</a><br>
+                                </td>
+                                <td>2021-07-29</td>
+                            </tr>
+
+
+                            <tr>
+                                <td>Answer Engineering [<a href="http://kgspace.github.io/data/pdf/answer.pdf" target="_blank" class="text-primary">Pdf</a>]</td>
+                                <td>
+
+                                    <img id="fig_answer"
+                                         src="./fig/content/answer.png"
+                                         class="figure-img img-fluid rounded"
+                                         alt="..."
+                                         style="width: 100px"
+                                    />
+
+
+                                </td>
+                                <td>
+                                    Discrete Answer<br>
+                                    1. <a href="https://arxiv.org/abs/2001.07676" target="_blank" class="text-primary">Exploiting
+                                    Cloze Questions for Few Shot Text Classification and Natural Language
+                                    Inference</a><br>
+                                    2. <a href="https://arxiv.org/abs/2010.13641" target="_blank" class="text-primary">Automatically
+                                    Identifying Words That Can Serve as Labels for Few-Shot Text
+                                    Classification</a><br>
+                                    3. <a href="https://arxiv.org/abs/2010.15980" target="_blank" class="text-primary">AutoPrompt:
+                                    Eliciting Knowledge from Language Models with Automatically Generated
+                                    Prompts</a><br>
+                                    4. <a href="https://arxiv.org/abs/2012.15723" target="_blank" class="text-primary">Making
+                                    Pre-trained Language Models Better Few-shot Learners</a><br>
+                                    5. <a href="https://arxiv.org/abs/2104.07650" target="_blank" class="text-primary">AdaPrompt:
+                                    Adaptive Prompt-based Finetuning for Relation Extraction</a><br>
+                                    Continuous Answer<br>
+                                    1. <a href="https://arxiv.org/abs/2101.00121" target="_blank" class="text-primary">WARP:
+                                    Word-level Adversarial ReProgramming</a><br>
+                                </td>
+                                <td>2021-07-29</td>
+                            </tr>
+
+
+                            <tr>
+                                <td>Multi-prompt Learning [<a href="http://kgspace.github.io/data/pdf/multi-prompt.pdf" target="_blank" class="text-primary">Pdf</a>]</td>
+                                <td>
+
+                                    <img id="fig_multi_prompt"
+                                         src="./fig/content/multi_prompt.png"
+                                         class="figure-img img-fluid rounded"
+                                         alt="..."
+                                         style="width: 100px"
+                                    />
+
+
+                                </td>
+                                <td>
+                                    Prompt Ensemble<br>
+                                    1. <a href="https://arxiv.org/abs/1911.12543" target="_blank" class="text-primary">How
+                                    Can We Know What Language Models Know?</a><br>
+                                    2. <a href="https://arxiv.org/abs/2001.07676" target="_blank" class="text-primary">Exploiting
+                                    Cloze Questions for Few Shot Text Classification and Natural Language
+                                    Inference</a><br>
+                                    3. <a href="https://arxiv.org/abs/2012.11926" target="_blank" class="text-primary">Few-Shot
+                                    Text Generation with Pattern-Exploiting Training</a><br>
+                                    4. <a href="https://arxiv.org/abs/2104.06599" target="_blank" class="text-primary">Learning
+                                    How to Ask: Querying LMs with Mixtures of Soft Prompts</a><br>
+                                    Prompt Augmentation<br>
+                                    1. <a href="https://arxiv.org/abs/2005.14165" target="_blank" class="text-primary">Language
+                                    Models are Few-Shot Learners</a><br>
+                                    2. <a href="https://arxiv.org/abs/2101.06804" target="_blank" class="text-primary">What
+                                    Makes Good In-Context Examples for GPT-3?</a><br>
+                                    3. <a href="https://arxiv.org/abs/2104.08786" target="_blank" class="text-primary">Fantastically
+                                    Ordered Prompts and Where to Find Them: Overcoming Few-Shot Prompt Order
+                                    Sensitivity</a><br>
+                                    Prompt Composition<br>
+                                    1. <a href="https://arxiv.org/abs/2105.11259" target="_blank" class="text-primary">PTR:
+                                    Prompt Tuning with Rules for Text Classification</a><br>
+                                    Prompt Decomposition<br>
+                                    1. <a href="https://arxiv.org/abs/2106.01760" target="_blank" class="text-primary">Template-Based
+                                    Named Entity Recognition Using BART</a><br>
+                                </td>
+                                <td>2021-07-29</td>
+                            </tr>
+
+                            <tr>
+                                <td>Prompt Learning Strategies [<a href="http://kgspace.github.io/data/pdf/learning.pdf" target="_blank" class="text-primary">Pdf</a>]
+                                </td>
+                                <td>
+
+                                    <img id="fig_learning"
+                                         src="./fig/content/learning.png"
+                                         class="figure-img img-fluid rounded  "
+                                         alt="..."
+                                         style="width: 100px"
+                                    />
+
+
+                                </td>
+                                <td>
+                                    In-context Learning<br>
+                                    1. <a
+                                        href="https://d4mucfpksywv.cloudfront.net/better-language-models/language_models_are_unsupervised_multitask_learners.pdf"
+                                        target="_blank" class="text-primary">Language Models are Unsupervised Multitask
+                                    Learners</a><br>
+                                    2. <a href="https://arxiv.org/abs/2005.14165" target="_blank" class="text-primary">Language
+                                    Models are Few-Shot Learners</a><br>
+                                    3. <a href="https://arxiv.org/abs/1909.01066" target="_blank" class="text-primary">Language
+                                    Models as Knowledge Bases?</a><br>
+                                    Prompt-only Tuning<br>
+                                    1. <a href="https://arxiv.org/abs/2101.00121" target="_blank" class="text-primary">WARP:
+                                    Word-level Adversarial ReProgramming</a><br>
+                                    2. <a href="https://arxiv.org/abs/2101.00190" target="_blank" class="text-primary">Prefix-Tuning:
+                                    Optimizing Continuous Prompts for Generation</a><br>
+                                    3. <a href="https://arxiv.org/abs/2104.08691" target="_blank" class="text-primary">The
+                                    Power of Scale for Parameter-Efficient Prompt Tuning</a><br>
+                                    4. <a href="https://arxiv.org/abs/2106.13884" target="_blank" class="text-primary">Multimodal
+                                    Few-Shot Learning with Frozen Language Models</a><br>
+                                    Model Fine-tuning<br>
+                                    1. <a href="https://arxiv.org/abs/1810.04805" target="_blank" class="text-primary">BERT:
+                                    Pre-training of Deep Bidirectional Transformers for Language
+                                    Understanding</a><br>
+                                    2. <a href="https://arxiv.org/abs/1910.13461" target="_blank" class="text-primary">BART:
+                                    Denoising Sequence-to-Sequence Pre-training for Natural Language Generation,
+                                    Translation, and Comprehension</a><br>
+                                    Prompt-fixed Fine-tuning<br>
+                                    1. <a href="https://arxiv.org/abs/2001.07676" target="_blank" class="text-primary">Exploiting
+                                    Cloze Questions for Few Shot Text Classification and Natural Language
+                                    Inference</a><br>
+                                    2. <a href="https://arxiv.org/abs/2012.11926" target="_blank" class="text-primary">Few-Shot
+                                    Text Generation with Pattern-Exploiting Training</a><br>
+                                    3. <a href="https://arxiv.org/abs/2012.15723" target="_blank" class="text-primary">Making
+                                    Pre-trained Language Models Better Few-shot Learners</a><br>
+                                    4. <a href="https://arxiv.org/abs/2104.04670" target="_blank" class="text-primary">Meta-tuning
+                                    Language Models to Answer Prompts Better</a><br>
+                                    Prompt Fine-tuning<br>
+                                    1. <a href="https://arxiv.org/abs/2102.12206" target="_blank" class="text-primary">PADA:
+                                    A Prompt-based Autoregressive Approach for Adaptation to Unseen Domains</a><br>
+                                    2. <a href="https://arxiv.org/abs/2103.10385" target="_blank" class="text-primary">GPT
+                                    Understands, Too</a><br>
+                                    3. <a href="https://arxiv.org/abs/2105.11259" target="_blank" class="text-primary">PTR:
+                                    Prompt Tuning with Rules for Text Classification</a><br>
+                                    4. <a href="https://arxiv.org/abs/2106.13353" target="_blank" class="text-primary">Cutting
+                                    Down on Prompts and Parameters: Simple Few-Shot Learning with Language
+                                    Models</a><br>
+                                </td>
+                                <td>2021-07-29</td>
+                            </tr>
+
+                            <tr>
+                                <td>Application [<a href="http://kgspace.github.io/data/pdf/application.pdf" target="_blank" class="text-primary">Pdf</a>]</td>
+                                <td>
+
+                                    <img id="fig_application"
+                                         src="./fig/content/application.png"
+                                         class="figure-img img-fluid rounded "
+                                         alt="..."
+                                         style="width: 100px"
+                                    />
+
+
+                                </td>
+                                <td>
+                                    Factual Probing<br>
+                                    1. <a href="https://arxiv.org/abs/1909.01066" target="_blank" class="text-primary">Language
+                                    Models as Knowledge Bases?</a><br>
+                                    2. <a href="https://arxiv.org/abs/1911.12543" target="_blank" class="text-primary">How
+                                    Can We Know What Language Models Know?</a><br>
+                                    3. <a href="https://arxiv.org/abs/2010.15980" target="_blank" class="text-primary">AutoPrompt:
+                                    Eliciting Knowledge from Language Models with Automatically Generated
+                                    Prompts</a><br>
+                                    4. <a href="https://arxiv.org/abs/2104.05240" target="_blank" class="text-primary">Factual
+                                    Probing Is [MASK]: Learning vs. Learning to Recall</a><br>
+                                    Text Classification<br>
+                                    1. <a href="https://arxiv.org/abs/1912.10165" target="_blank" class="text-primary">Zero-shot
+                                    Text Classification With Generative Language Models</a><br>
+                                    2. <a href="https://arxiv.org/abs/2010.15980" target="_blank" class="text-primary">AutoPrompt:
+                                    Eliciting Knowledge from Language Models with Automatically Generated
+                                    Prompts</a><br>
+                                    3. <a href="https://arxiv.org/abs/2001.07676" target="_blank" class="text-primary">Exploiting
+                                    Cloze Questions for Few Shot Text Classification and Natural Language
+                                    Inference</a><br>
+                                    4. <a href="https://arxiv.org/abs/2012.15723" target="_blank" class="text-primary">Making
+                                    Pre-trained Language Models Better Few-shot Learners</a><br>
+                                    5. <a href="https://arxiv.org/abs/2101.00121" target="_blank" class="text-primary">WARP:
+                                    Word-level Adversarial ReProgramming</a><br>
+                                    Information Extraction<br>
+                                    1. <a href="https://arxiv.org/abs/2104.07650" target="_blank" class="text-primary">AdaPrompt:
+                                    Adaptive Prompt-based Finetuning for Relation Extraction</a><br>
+                                    2. <a href="https://arxiv.org/abs/2105.11259" target="_blank" class="text-primary">PTR:
+                                    Prompt Tuning with Rules for Text Classification</a><br>
+                                    3. <a href="https://arxiv.org/abs/2106.01760" target="_blank" class="text-primary">Template-Based
+                                    Named Entity Recognition Using BART</a><br>
+                                    Question Answering<br>
+                                    1. <a href="https://aclanthology.org/2020.findings-emnlp.171/" target="_blank"
+                                          class="text-primary">UNIFIEDQA: Crossing Format Boundaries with a Single QA
+                                    System</a><br>
+                                    Text Generation<br>
+                                    1. <a
+                                        href="https://d4mucfpksywv.cloudfront.net/better-language-models/language_models_are_unsupervised_multitask_learners.pdf"
+                                        target="_blank" class="text-primary">Language Models are Unsupervised Multitask
+                                    Learners</a><br>
+                                    2. <a href="https://arxiv.org/abs/2005.14165" target="_blank" class="text-primary">Language
+                                    Models are Few-Shot Learners</a><br>
+                                    3. <a href="https://arxiv.org/abs/2101.00190" target="_blank" class="text-primary">Prefix-Tuning:
+                                    Optimizing Continuous Prompts for Generation</a><br>
+                                    4. <a href="https://arxiv.org/abs/2012.11926" target="_blank" class="text-primary">Few-Shot
+                                    Text Generation with Pattern-Exploiting Training</a><br>
+                                    Others<br>
+                                    1. <a href="https://arxiv.org/abs/1806.02847" target="_blank" class="text-primary">A
+                                    Simple Method for Commonsense Reasoning</a><br>
+                                    2. <a href="https://arxiv.org/abs/2106.11520" target="_blank" class="text-primary">BARTScore:
+                                    Evaluating Generated Text as Text Generation</a><br>
+                                    3. <a href="https://arxiv.org/abs/2103.00453" target="_blank" class="text-primary">Self-Diagnosis
+                                    and Self-Debiasing: A Proposal for Reducing Corpus-Based Bias in NLP</a><br>
+                                    4. <a href="https://arxiv.org/abs/2104.07540" target="_blank" class="text-primary">Generating
+                                    Datasets with Pretrained Language Models</a><br>
+                                    5. <a href="https://arxiv.org/abs/2106.13884" target="_blank" class="text-primary">Multimodal
+                                    Few-Shot Learning with Frozen Language Models</a><br>
+                                </td>
+                                <td>2021-07-29</td>
+                            </tr>
+
+                            <tr>
+                                <td>Relevant Topics [<a href="http://kgspace.github.io/data/pdf/related.pdf" target="_blank" class="text-primary">Pdf</a>]</td>
+                                <td>
+
+                                    <img id="fig_related"
+                                         src="./fig/content/related.png"
+                                         class="figure-img img-fluid rounded  "
+                                         alt="..."
+                                         style="width: 100px"
+                                    />
+
+
+                                </td>
+                                <td>-</td>
+                                <td>2021-07-29</td>
+                            </tr>
+
+                            <tr>
+                                <td>Challenges [<a href="" target="_blank" class="text-primary">Pdf</a>]</td>
+                                <td>
+
+                                    <img id="fig_challenge"
+                                         src="./fig/content/challenge.png"
+                                         class="figure-img img-fluid rounded  "
+                                         alt="..."
+                                         style="width: 100px"
+                                    />
+
+                                </td>
+                                <td>-</td>
+                                <td>2021-07-29</td>
+                            </tr>
+
+                            <tr>
+                                <td>Meta Analysis [<a href="http://kgspace.github.io/data/pdf/challenge.pdf" target="_blank" class="text-primary">Pdf</a>]</td>
+                                <td>
+
+                                    <img id="fig_meta"
+                                         src="./fig/content/meta.png"
+                                         class="figure-img img-fluid rounded "
+                                         alt="..."
+                                         style="width: 100px"
+                                    />
+
+
+                                </td>
+                                <td>-</td>
+                                <td>2021-07-29</td>
+                            </tr>
+
+
+
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </section>
+        <!-- Section: Team v.3 -->
+
+        <hr class="my-5">
+
+
+        <!-- Section: Contact v.2 -->
+
+    </div>
+
+</main>
+<!-- Main Layout -->
+
+<!-- Footer -->
+<!-- Footer -->
+
+<!--  SCRIPTS  -->
+<!-- JQuery -->
+<script type="text/javascript" src="./mdb/js/jquery.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="./mdb/js/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="./mdb/js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="./mdb/js/mdb.min.js"></script>
+
+
+<!-- Your custom scripts (optional) -->
+<script type="text/javascript"></script>
+
+<script type="text/javascript" src="./mdb5/js/mdb.min.js"></script>
+
+<!--  <a href="https://clustrmaps.com/site/1bh88"  title="Visit tracker"><img src="//www.clustrmaps.com/map_v2.png?d=ixPZLlnbVzOkmbllcqqWxPHy-WqRkh97J35GVa0k0g8&cl=ffffff" style="display:none" /></a>-->
+
+<script>
+    $(document).ready(() => {
+        new WOW().init();
+    });
+
+    // MDB Lightbox Init
+    $(function () {
+        $("#mdb-lightbox-ui").load("./mdb/mdb-addons/mdb-lightbox-ui.html");
+    });
+
+</script>
+
+<script>
+        // update visitor count
+        const countEl = document.getElementById('count');
+
+        updateVisit();
+
+        function updateVisit() {
+
+            fetch('https://api.countapi.xyz/hit/kgspace/kgspace/?amount=1')
+                    .then(res => res.json())
+                    .then(res => {
+                        countEl.innerText = res.value + " visits";
+                    });
+        }
+</script>
+
+<a href="https://clustrmaps.com/site/1bj5x"  title="Visit tracker"><img src="//www.clustrmaps.com/map_v2.png?d=jVALCppOOpMpFFHwD9k9agXMsTbib3HtJn3JbH7p9qo&cl=ffffff" style="display:none" /></a>
+
+</body>
+</html>

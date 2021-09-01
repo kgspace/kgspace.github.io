@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--  Required meta tags always come first  -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Pretrain Language Models</title>
+    <link rel="icon" href="./fig/logo.png">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!--  Font Awesome  -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="./mdb/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="./mdb/css/mdb.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="./mdb/css/style.css">
+    <!-- Custom styles: Hover -->
+    <link rel="stylesheet" href="./mdb5/css/mdb.min.css"/>
+    <!-- Custom styles -->
+    <style>
+
+        html,
+        body,
+        header,
+        .jarallax {
+            height: 700px;
+        }
+
+        @media (max-width: 740px) {
+            html,
+            body,
+            header,
+            .jarallax {
+                height: 100vh;
+            }
+        }
+
+        @media (min-width: 800px) and (max-width: 850px) {
+            html,
+            body,
+            header,
+            .jarallax {
+                height: 100vh;
+            }
+        }
+
+        @media (min-width: 560px) and (max-width: 650px) {
+            header .jarallax h1 {
+                margin-bottom: 1.5rem !important;
+            }
+
+            header .jarallax h5 {
+                margin-bottom: 1.5rem !important;
+            }
+        }
+
+        .top-nav-collapse {
+            background-color: #3f51b5 !important;
+        }
+
+        .navbar:not(.top-nav-collapse) {
+            background: transparent !important;
+        }
+
+        @media (max-width: 768px) {
+            .navbar:not(.top-nav-collapse) {
+                background: #3f51b5 !important;
+            }
+        }
+
+        @media (min-width: 800px) and (max-width: 850px) {
+            .navbar:not(.top-nav-collapse) {
+                background: #3f51b5 !important;
+            }
+        }
+
+        h5 {
+            letter-spacing: 3px;
+        }
+    </style>
+
+    <!-- <script>-->
+    <!--$(document).ready(function(){-->
+    <!--  $("#intro").hover(function(){-->
+    <!--    // $("#test").css("background-color","yellow");-->
+    <!--      $("#fig_intro").show("slow")-->
+    <!--      $("#value-desc").css("display","block");-->
+    <!--    },function(){-->
+    <!--    // $("#test").css("background-color","pink");-->
+    <!--    $("#fig_intro").hide("slow")-->
+    <!--    $("#value-desc").css("display","none");-->
+    <!--  });-->
+    <!--});-->
+    <!--</script>-->
+
+    <script type="text/javascript">
+
+        $(function () {
+            $('#fig_typo').mouseenter(function (elem) {
+                //if ($('#match'))
+                var wValue = 5 * $(this).width();
+                var hValue = 5 * $(this).height();
+                $(this).stop().animate({
+                    width: wValue,
+                    height: hValue,
+                    left: ("-" + (0.5 * $(this).width()) / 2),
+                    top: ("-" + (0.5 * $(this).height()) / 2)
+                }, 1000);
+            }).mouseleave(function (elem) {
+                $(this).stop().animate({
+                    width: "100px",
+                    height: "120px",
+                    left: "0px",
+                    top: "0px"
+                }, 1000);
+            });
+        });
+
+
+        $(function () {
+            $('#fig_intro').mouseenter(function (elem) {
+                //if ($('#match'))
+                var wValue = 5 * $(this).width();
+                var hValue = 5 * $(this).height();
+                $(this).stop().animate({
+                    width: wValue,
+                    height: hValue,
+                    left: ("-" + (0.5 * $(this).width()) / 2),
+                    top: ("-" + (0.5 * $(this).height()) / 2)
+                }, 1000);
+            }).mouseleave(function (elem) {
+                $(this).stop().animate({
+                    width: "100px",
+                    height: "50px",
+                    left: "0px",
+                    top: "0px"
+                }, 1000);
+            });
+        });
+
+
+        $(function () {
+            $('#fig_formulation').mouseenter(function (elem) {
+                //if ($('#match'))
+                var wValue = 5 * $(this).width();
+                var hValue = 5 * $(this).height();
+                $(this).stop().animate({
+                    width: wValue,
+                    height: hValue,
+                    left: ("-" + (0.5 * $(this).width()) / 2),
+                    top: ("-" + (0.5 * $(this).height()) / 2)
+                }, 1000);
+            }).mouseleave(function (elem) {
+                $(this).stop().animate({
+                    width: "100px",
+                    height: "50px",
+                    left: "0px",
+                    top: "0px"
+                }, 1000);
+            });
+        });
+
+        $(function () {
+            $('#fig_pretrain').mouseenter(function (elem) {
+//if ($('#match'))
+                var wValue = 5 * $(this).width();
+                var hValue = 5 * $(this).height();
+                $(this).stop().animate({
+                    width: wValue,
+                    height: hValue,
+                    left: ("-" + (0.5 * $(this).width()) / 2),
+                    top: ("-" + (0.5 * $(this).height()) / 2)
+                }, 1000);
+            }).mouseleave(function (elem) {
+                $(this).stop().animate({
+                    width: "100px",
+                    height: "50px",
+                    left: "0px",
+                    top: "0px"
+                }, 1000);
+            });
+        });
+
+        $(function () {
+            $('#fig_template').mouseenter(function (elem) {
+//if ($('#match'))
+                var wValue = 5 * $(this).width();
+                var hValue = 5 * $(this).height();
+                $(this).stop().animate({
+                    width: wValue,
+                    height: hValue,
+                    left: ("-" + (0.5 * $(this).width()) / 2),
+                    top: ("-" + (0.5 * $(this).height()) / 2)
+                }, 1000);
+            }).mouseleave(function (elem) {
+                $(this).stop().animate({
+                    width: "100px",
+                    height: "50px",
+                    left: "0px",
+                    top: "0px"
+                }, 1000);
+            });
+        });
+
+        $(function () {
+            $('#fig_answer').mouseenter(function (elem) {
+//if ($('#match'))
+                var wValue = 5 * $(this).width();
+                var hValue = 5 * $(this).height();
+                $(this).stop().animate({
+                    width: wValue,
+                    height: hValue,
+                    left: ("-" + (0.5 * $(this).width()) / 2),
+                    top: ("-" + (0.5 * $(this).height()) / 2)
+                }, 1000);
+            }).mouseleave(function (elem) {
+                $(this).stop().animate({
+                    width: "100px",
+                    height: "50px",
+                    left: "0px",
+                    top: "0px"
+                }, 1000);
+            });
+        });
+
+        $(function () {
+            $('#fig_multi_prompt').mouseenter(function (elem) {
+//if ($('#match'))
+                var wValue = 5 * $(this).width();
+                var hValue = 5 * $(this).height();
+                $(this).stop().animate({
+                    width: wValue,
+                    height: hValue,
+                    left: ("-" + (0.5 * $(this).width()) / 2),
+                    top: ("-" + (0.5 * $(this).height()) / 2)
+                }, 1000);
+            }).mouseleave(function (elem) {
+                $(this).stop().animate({
+                    width: "100px",
+                    height: "50px",
+                    left: "0px",
+                    top: "0px"
+                }, 1000);
+            });
+        });
+
+
+        $(function () {
+            $('#fig_learning').mouseenter(function (elem) {
+//if ($('#match'))
+                var wValue = 5 * $(this).width();
+                var hValue = 5 * $(this).height();
+                $(this).stop().animate({
+                    width: wValue,
+                    height: hValue,
+                    left: ("-" + (0.5 * $(this).width()) / 2),
+                    top: ("-" + (0.5 * $(this).height()) / 2)
+                }, 1000);
+            }).mouseleave(function (elem) {
+                $(this).stop().animate({
+                    width: "100px",
+                    height: "50px",
+                    left: "0px",
+                    top: "0px"
+                }, 1000);
+            });
+        });
+
+
+        $(function () {
+            $('#fig_application').mouseenter(function (elem) {
+//if ($('#match'))
+                var wValue = 5 * $(this).width();
+                var hValue = 5 * $(this).height();
+                $(this).stop().animate({
+                    width: wValue,
+                    height: hValue,
+                    left: ("-" + (0.5 * $(this).width()) / 2),
+                    top: ("-" + (0.5 * $(this).height()) / 2)
+                }, 1000);
+            }).mouseleave(function (elem) {
+                $(this).stop().animate({
+                    width: "100px",
+                    height: "50px",
+                    left: "0px",
+                    top: "0px"
+                }, 1000);
+            });
+        });
+
+        $(function () {
+            $('#fig_related').mouseenter(function (elem) {
+//if ($('#match'))
+                var wValue = 5 * $(this).width();
+                var hValue = 5 * $(this).height();
+                $(this).stop().animate({
+                    width: wValue,
+                    height: hValue,
+                    left: ("-" + (0.5 * $(this).width()) / 2),
+                    top: ("-" + (0.5 * $(this).height()) / 2)
+                }, 1000);
+            }).mouseleave(function (elem) {
+                $(this).stop().animate({
+                    width: "100px",
+                    height: "50px",
+                    left: "0px",
+                    top: "0px"
+                }, 1000);
+            });
+        });
+
+
+        $(function () {
+            $('#fig_resource').mouseenter(function (elem) {
+//if ($('#match'))
+                var wValue = 5 * $(this).width();
+                var hValue = 5 * $(this).height();
+                $(this).stop().animate({
+                    width: wValue,
+                    height: hValue,
+                    left: ("-" + (0.5 * $(this).width()) / 2),
+                    top: ("-" + (0.5 * $(this).height()) / 2)
+                }, 1000);
+            }).mouseleave(function (elem) {
+                $(this).stop().animate({
+                    width: "100px",
+                    height: "50px",
+                    left: "0px",
+                    top: "0px"
+                }, 1000);
+            });
+        });
+
+
+        $(function () {
+            $('#fig_challenge').mouseenter(function (elem) {
+//if ($('#match'))
+                var wValue = 5 * $(this).width();
+                var hValue = 5 * $(this).height();
+                $(this).stop().animate({
+                    width: wValue,
+                    height: hValue,
+                    left: ("-" + (0.5 * $(this).width()) / 2),
+                    top: ("-" + (0.5 * $(this).height()) / 2)
+                }, 1000);
+            }).mouseleave(function (elem) {
+                $(this).stop().animate({
+                    width: "100px",
+                    height: "50px",
+                    left: "0px",
+                    top: "0px"
+                }, 1000);
+            });
+        });
+
+
+        $(function () {
+            $('#fig_meta').mouseenter(function (elem) {
+//if ($('#match'))
+                var wValue = 5 * $(this).width();
+                var hValue = 5 * $(this).height();
+                $(this).stop().animate({
+                    width: wValue,
+                    height: hValue,
+                    left: ("-" + (0.5 * $(this).width()) / 2),
+                    top: ("-" + (0.5 * $(this).height()) / 2)
+                }, 1000);
+            }).mouseleave(function (elem) {
+                $(this).stop().animate({
+                    width: "100px",
+                    height: "50px",
+                    left: "0px",
+                    top: "0px"
+                }, 1000);
+            });
+        });
+
+    </script>
+
+
+</head>
+<body>
+
+<!-- Main Navigation -->
+<header>
+
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg  ml-auto navbar-dark fixed-top scrolling-navbar">
+        <div class="container">
+
+
+
+            <a class="navbar-brand" href="index.html">
+                <img src="./fig/logo.png" class="rounded-circle" width="50" alt="pretrain">
+            </a>
+
+            <a class="navbar-brand" href="index.html"><strong>Knowledge Graph Spaces</strong></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <!--   visitor counter   -->
+
+            <!--   visitor counter   -->
+
+
+            <nobr id="count" style="color:white"></nobr>
+
+
+            <!--                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-7" aria-controls="navbarSupportedContent-7" aria-expanded="false" aria-label="Toggle navigation">-->
+            <!--                    <span class="navbar-toggler-icon"></span>-->
+            <!--                </button>-->
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+
+                    <a class="nav-link" href="https://arxiv.org/" target="_blank">
+                        <li class="nav-item">
+                            <i class="far fa-file-alt"></i>
+                            Full Survey
+                    </a>
+                    </li>
+                    </a>
+
+                    <a class="nav-link" href="timeline.html" target="_blank">
+                        <li class="nav-item">
+                            <i class="fas fa-arrow-down"></i>
+                            Timeline <span class="badge bg-danger rounded-pill"> +5</span>
+                    </a>
+                    </li>
+                    </a>
+
+
+                    <a class="nav-link" href="https://github.com/kgspace/KGRS" target="_blank">
+                        <li class="nav-item">
+                            <i class="fab fa-github pr-1"></i> Github
+                    </a>
+                    </li>
+                    </a>
+
+
+                     <a class="nav-link" href="update.html" target="_blank">
+                        <li class="nav-item">
+                            <i class="fas fa-sync-alt"></i>
+                            Update <span class="badge bg-danger rounded-pill"> +5</span>
+                    </a>
+                    </li>
+                    </a>
+
+
+                </ul>
+                <form class="form-inline">
+                </form>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Intro Section -->
+    <div id="home" class="view jarallax" data-jarallax='{"speed": 0.2}'
+         style="background-image: url(fig/bg.png); background-repeat: no-repeat; background-size: cover; background-position: center center;">
+        <div class="mask rgba-stylish-light">
+            <div class="container h-100 d-flex justify-content-center align-items-center">
+                <div class="row pt-5 mt-3">
+                    <div class="col-md-12 mb-3">
+                        <div class="intro-info-content text-center">
+                            <h1 class="display-3 white-text mb-5 wow fadeInDown" data-wow-delay="0.3s"><a
+                                    class="white-text font-weight-bold">Knowledge Graph Embedding</a></h1>
+                            <h3 class="white-text mb-5 mt-1 font-weight-bold wow fadeInDown" data-wow-delay="0.3s">A Representation Space Learning Perspective </h3>
+                            <!--                            <a class="btn btn-light-blue btn-lg wow fadeInDown" data-wow-delay="0.3s">portfolio</a>-->
+                            <!--                            <a class="btn btn-indigo btn-lg wow fadeInDown" data-wow-delay="0.3s">About</a>-->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</header>
+<!-- Main Navigation -->
+
+<!-- Main Layout -->
+<main>
+
+    <div class="container">
+
+        <!-- Section: Team v.3 -->
+        <section id="team" class="section team-section pb-4 wow fadeIn" data-wow-delay="0.3s">
+
+            <!-- Section heading -->
+            <h2 class="font-weight-bold text-center h1 my-5"></h2>
+            <div class="container text-center  py-5">
+            </div>
+            <!-- Section description -->
+
+
+            <div class="row text-center">
+                <div class="col-md-1 text-left">
+                </div>
+                <div class="col-md-10 text-left">
+                    <h2 class="text-left">A Representation Space Perspective of Knowledge Embedding Learning</h2>
+                    <p class="text-left">This paper aims to provide a survey and organization of research works in a new
+                        paradigm
+                        in natural language processing, which we dub prompt-based learning. [Update: 2021-08-15] </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="row text-center">
+                <div class="col-md-1 text-left">
+                </div>
+                <div class="col-md-10 text-left">
+
+                    <div class="table">
+                        <table>
+                            <thead>
+                            <tr>
+                                <th class="th-sm">Description</th>
+                                <th class="th-sm">Preview</th>
+                                <th class="th-sm">Suggested Readings</th>
+                                <th class="th-sm">Updated Date</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            <tr>
+                                <td>Outline [<a href="" target="_blank" class="text-primary">Pdf</a>]</td>
+                                <td>
+
+                                </td>
+                                <td>-</td>
+                                <td>2021-09-01</td>
+                            </tr>
+
+                            <tr>
+                                <td>Representation Spaces in ML [<a href="" target="_blank" class="text-primary">Pdf</a>]
+                                </td>
+                                <td>
+
+                                </td>
+                                <td>-</td>
+                                <td>2021-09-01</td>
+                            </tr>
+
+                            <tr>
+                                <td>Representation Spaces in KGRL [<a href="" target="_blank" class="text-primary">Pdf</a>]
+                                </td>
+                                <td>
+
+                                </td>
+                                <td>-</td>
+                                <td>2021-09-01</td>
+                            </tr>
+
+
+                            <tr>
+                                <td>Discussion [<a href="" target="_blank" class="text-primary">Pdf</a>]
+                                </td>
+                                <td>
+
+                                </td>
+                                <td>
+                                </td>
+                                <td>2021-09-01</td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </section>
+        <!-- Section: Team v.3 -->
+
+        <hr class="my-5">
+
+
+        <!-- Section: Contact v.2 -->
+
+    </div>
+
+</main>
+<!-- Main Layout -->
+
+<!-- Footer -->
+<!-- Footer -->
+
+<!--  SCRIPTS  -->
+<!-- JQuery -->
+<script type="text/javascript" src="./mdb/js/jquery.min.js"></script>
+<!-- Bootstrap tooltips -->
+<script type="text/javascript" src="./mdb/js/popper.min.js"></script>
+<!-- Bootstrap core JavaScript -->
+<script type="text/javascript" src="./mdb/js/bootstrap.min.js"></script>
+<!-- MDB core JavaScript -->
+<script type="text/javascript" src="./mdb/js/mdb.min.js"></script>
+
+
+<!-- Your custom scripts (optional) -->
+<script type="text/javascript"></script>
+
+<script type="text/javascript" src="./mdb5/js/mdb.min.js"></script>
+
+<!--  <a href="https://clustrmaps.com/site/1bh88"  title="Visit tracker"><img src="//www.clustrmaps.com/map_v2.png?d=ixPZLlnbVzOkmbllcqqWxPHy-WqRkh97J35GVa0k0g8&cl=ffffff" style="display:none" /></a>-->
+
+<script>
+    $(document).ready(() => {
+        new WOW().init();
+    });
+
+    // MDB Lightbox Init
+    $(function () {
+        $("#mdb-lightbox-ui").load("./mdb/mdb-addons/mdb-lightbox-ui.html");
+    });
+
+</script>
+
+<script>
+        // update visitor count
+        const countEl = document.getElementById('count');
+
+        updateVisit();
+
+        function updateVisit() {
+
+            fetch('https://api.countapi.xyz/hit/kgspace/kgspace/?amount=1')
+                    .then(res => res.json())
+                    .then(res => {
+                        countEl.innerText = res.value + " visits";
+                    });
+        }
+</script>
+
+<a href="https://clustrmaps.com/site/1bj5x"  title="Visit tracker"><img src="//www.clustrmaps.com/map_v2.png?d=jVALCppOOpMpFFHwD9k9agXMsTbib3HtJn3JbH7p9qo&cl=ffffff" style="display:none" /></a>
+
+</body>
+</html>
